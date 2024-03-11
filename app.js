@@ -15,31 +15,6 @@ const app = express();
 app.use(bodyParser.json({ limit: '30mb' }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 
-
-// //VERIFICAR QUE ESTEN LAS VARIABLES DE ENTORNO
-// const requiredEnvVars = [
-//   'WEATHER_API_KEY',
-//   'MONGO_DB_NAME',
-//   'PORT'
-// ];
-
-// function validateEnvVars() {
-//   const unsetEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-
-//   if (unsetEnvVars.length > 0) {
-//     const missingVars = unsetEnvVars.join(', ');
-//     throw new Error(`Missing required environment variables: ${missingVars}`);
-//   }
-// }
-
-// // Call the function to perform the validation
-// try {
-//   validateEnvVars();
-// } catch (error) {
-//   console.error(error.message);
-//   process.exit(1);
-// }
-
 app.use(express.json());
 
 app.use(cors({ origin: "*" }));
