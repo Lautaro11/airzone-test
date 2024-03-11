@@ -9,12 +9,13 @@ export async function getWeatherFromApi(lat, lon) {
   };
 
   try {
+    const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${process.env.WEATHER_API_KEY}`;
     const response = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=eea2db05ade761350d739d29765fb6f5`,
+      url,
       requestOptions
     );
     weatherData = await response.json();
-    if (weatherData.cod !== "200") {
+    if (!weatherData.lat && !weatherData.lon) {
       throw {
         statusCode: weatherData.cod || 400,
         message: weatherData.message || "Error fetching data from the API",

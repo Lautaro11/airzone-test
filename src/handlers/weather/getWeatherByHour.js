@@ -1,5 +1,4 @@
 // This file is the handler for the getWeather endpoint
-import generateResponse from "#lib/generateResponse.js";
 import { getWeatherDataByHour, validateCoordinates } from "#lib/tools.js";
 
 export default async function getWeatherByHour(req, res) {
@@ -7,11 +6,11 @@ export default async function getWeatherByHour(req, res) {
     let { lat, lon, hour } = req.query;
 
     if (!lat || !lon || !hour) {
-      return generateResponse(400, { message: "Missing parameters" }, res);
+      return res.status(400).json({ message: "Missing parameters" });
     }
 
     if (!validateCoordinates(lat, lon)) {
-      return generateResponse(400, { message: "Invalid coordinates" }, res);
+      return res.status(400).json({ message: "Invalid coordinates" });
     }
 
     // Round coordinates to 4 decimal places (same as the API response)
@@ -19,19 +18,15 @@ export default async function getWeatherByHour(req, res) {
     lon = Number(lon).toFixed(4);
 
     if (!validateHour(hour)) {
-      return generateResponse(400, { message: "Invalid hour" }, res);
+      return res.status(400).json({ message: "Invalid hour" });
     }
 
     // Fetch weather data from the API // Fetch weather data
     let weatherData = await getWeatherDataByHour(lat, lon, hour);
 
-    return generateResponse(
-      200,
-      weatherData,
-      res
-    );
+    return res.status(200).json(weatherData);
   } catch (e) {
-    return generateResponse(e.statusCode || 400, {message: e.message || "Unexpected error"}, res);
+    return res.status(e.statusCode || 400).json({message: e.message || "Unexpected error"});
   }
 }
 

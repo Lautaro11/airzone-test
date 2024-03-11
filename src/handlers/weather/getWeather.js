@@ -1,5 +1,4 @@
 // This file is the handler for the getWeather endpoint
-import generateResponse from "#lib/generateResponse.js";
 import { getWeatherData, validateCoordinates } from "#lib/tools.js";
 
 export default async function getWeather(req, res) {
@@ -7,11 +6,11 @@ export default async function getWeather(req, res) {
     let { lat, lon } = req.query;
 
     if (!lat || !lon) {
-      return generateResponse(400, { message: "Missing parameters" }, res);
+      return res.status(400).json({ message: "Missing parameters" });
     }
 
     if (!validateCoordinates(lat, lon)) {
-      return generateResponse(400, { message: "Invalid coordinates" }, res);
+      return res.status(400).json({ message: "Invalid coordinates" });
     }
 
     // Round coordinates to 4 decimal places (same as the API response)
@@ -21,12 +20,8 @@ export default async function getWeather(req, res) {
     // Fetch weather data
     let weatherData = await getWeatherData(lat, lon);
 
-    return generateResponse(
-      200,
-      { hourly: weatherData.hourly, daily: weatherData.daily },
-      res
-    );
+    return res.status(200).json({ hourly: weatherData.hourly, daily: weatherData.daily });
   } catch (e) {
-    return generateResponse(e.statusCode || 400, {message: e.message || "Unexpected error"}, res);
+    return res.status(e.statusCode || 400).json({message: e.message || "Unexpected error"});
   }
 }

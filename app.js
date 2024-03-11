@@ -7,7 +7,6 @@ import weatherRoutes from './routes/weather.js';
 
 import {connectDB} from "#lib/DB.js";
 
-import generateResponse from "#lib/generateResponse.js";
 import bodyParser from "body-parser";
 
 const app = express();
@@ -35,9 +34,9 @@ if (!db) {
 
 // Configurar las rutas
 app.route('/').get((req, res) => {
-  generateResponse(200, {
+  res.status(200).json({
     message: 'Airzone TEST API',
-  }, res);
+  });
 });
 
 //Implement Routers
