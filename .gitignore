@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.dev
+.env.prod
+
+# Logs
+*.log
+npm-debug.log*
+
+# Directory for uploaded files
+/uploads
+
+/src/handlers/content/*.html
+
+# Optional: MacOS system files
+.DS_Store
+
+# Optional: Windows system files
+Thumbs.db
+
+# Optional: Visual Studio Code directory
+.vscode/
+
+# Optional: JetBrains IDEs (like WebStorm) project files
+.idea/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
