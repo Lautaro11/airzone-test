@@ -3,7 +3,7 @@ import app from '../../app.js';
 import assert from 'assert';
 
 describe('Endpoint /getWeather', () => {
-  it('Debería devolver datos climáticos para una ubicación válida', (done) => {
+  it('Debería devolver datos climaticos para una ubicacion valida', (done) => {
     request(app)
       .get('/weather?lat=12.345&lon=67.890')
       .expect(200)
@@ -26,7 +26,7 @@ describe('Endpoint /getWeather', () => {
       });
   });
 
-  it('Debería manejar errores para ubicación inválida', (done) => {
+  it('Deberia manejar errores para ubicacion invalida', (done) => {
     request(app)
       .get('/weather?lat=333&lon=555')
       .expect(400)

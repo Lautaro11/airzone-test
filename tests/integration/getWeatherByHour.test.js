@@ -3,7 +3,7 @@ import app from '../../app.js';
 import assert from 'assert';
 
 describe('Endpoint /getWeatherByHour', () => {
-  it('Debería devolver datos climaticos para una hora exacta', (done) => {
+  it('Deberia devolver datos climaticos para una hora exacta', (done) => {
     request(app)
       .get('/weather/hour?lat=12.345&lon=67.890&hour=21:00')
       .expect(200)
@@ -25,7 +25,7 @@ describe('Endpoint /getWeatherByHour', () => {
       });
   });
 
-  it('Debería devolver datos para una hora exacta', (done) => {
+  it('Deberia devolver datos para una hora exacta', (done) => {
     request(app)
       .get('/weather/hour?lat=12.345&lon=67.890&hour=21')
       .expect(200)
@@ -48,7 +48,7 @@ describe('Endpoint /getWeatherByHour', () => {
 
 
 
-  it('Debería manejar errores para hora invalida', (done) => {
+  it('Deberia manejar errores para hora invalida', (done) => {
     request(app)
       .get('/weather/hour?lat=12.345&lon=67.890&hour=99:00')
       .expect(400)
