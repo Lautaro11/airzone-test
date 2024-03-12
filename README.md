@@ -44,9 +44,10 @@ La aplicación implementa un sistema de caché para mejorar el rendimiento y red
 2. Instala las dependencias: `npm install`
 3. Copia el `.env.example` y cambia el nombre a `.env`, luego rellena los campos.
 4. 
-    A.Ejecuta la aplicación en docker: `docker-compose up --build` (crear imagen en docker y levantar el proyecto)
-    B.Ejecuta la aplicación local: `npm start`
-    C.Ejecuta los tests local: `npm run test-integration`
+
+    A. Ejecuta la aplicación en docker: `docker-compose up --build` (crear imagen en docker y levantar el proyecto)    
+    B. Ejecuta la aplicación local: `npm start`
+    C. Ejecuta los tests local: `npm run test-integration`
 
 ## Tecnologías Utilizadas
 
