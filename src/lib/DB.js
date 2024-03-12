@@ -11,7 +11,14 @@ export async function connectDB() {
       return db;
     }
 
-    const url = `mongodb://localhost:27017/${dbName}`;
+    let url;
+
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'docker') {
+      url = `mongodb://mongo/${dbName}`;
+    } else {
+      url = `${process.env.MONGO_DB_URL}/${dbName}`;
+    }
 
     let client = new MongoClient(url);
 

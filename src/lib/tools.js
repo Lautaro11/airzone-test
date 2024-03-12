@@ -74,7 +74,7 @@ export async function checkToUpdateData(dataFromDB, lat, lon) {
 }
 
 // Validate the coordinates
-export async function validateCoordinates(lat, lon) {
+export function validateCoordinates(lat, lon) {
   // Regex to validate decimal numbers
   const decimalRegex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
 
@@ -89,31 +89,6 @@ export async function validateCoordinates(lat, lon) {
   return false;
 }
 
-// // Insert the data into the DB
-// export async function insertData(document) {
-//   try {
-//     const result = await collection.insertOne(document);
-
-//     if (result.acknowledged) {
-//       console.log(
-//         "Document not found, created a new one:",
-//         result.insertedId.toString()
-//       );
-//     } else {
-//       throw {
-//         statusCode: 400,
-//         message: "Failed to create the document.",
-//       };
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     throw {
-//       statusCode: 400,
-//       message: "Failed to create the document.",
-//     };
-//   }
-// }
-
 export async function convertHourToUnix(hour, minutes = 0, seconds = 0) {
   let now = new Date();
   now.setUTCHours(hour, minutes, seconds, 0);
@@ -123,9 +98,14 @@ export async function convertHourToUnix(hour, minutes = 0, seconds = 0) {
 
 export async function getWeatherDataByHour(lat, lon, hour) {
   let weatherData;
+  let now = new Date();
 
   try {
     let unixHour = await convertHourToUnix(hour);
+    if (unixHour<Math.floor(new Date(now.getTime() / 1000))) {
+      //unix hour + 1 day to get the next day hour
+      unixHour += 86400;
+    }
     let dataFromDB = await fetchWeatherDataByHour(lat, lon, unixHour);
     
     weatherData = await checkToUpdateData(dataFromDB, lat, lon);

@@ -1,9 +1,9 @@
 import { connectDB } from "#lib/DB.js";
 const db = await connectDB();
-const collection = db.collection("weather");
 
 export const deleteById = async (id) => {
   try {
+    const collection = db.collection("weather");
     let dataFromDB = await collection.deleteOne({ _id: id });
     return dataFromDB;
   } catch (error) {
@@ -16,6 +16,7 @@ export const deleteById = async (id) => {
 
 export const insertData = async (document) => {
   try {
+    const collection = db.collection("weather");
     const result = await collection.insertOne(document);
 
     if (result.acknowledged) {
@@ -40,6 +41,7 @@ export const insertData = async (document) => {
 
 export const fetchWeatherData = async (lat, lon) => {
   try {
+    const collection = db.collection("weather");
     let dataFromDB = await collection
       .find({ lat: Number(lat), lon: Number(lon) })
       .toArray();
@@ -54,6 +56,7 @@ export const fetchWeatherData = async (lat, lon) => {
 
 export const fetchWeatherDataByHour = async (lat, lon, unixHour) => {
   try {
+    const collection = db.collection("weather");
     let dataFromDB = await collection
       .aggregate([
         {

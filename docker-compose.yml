@@ -1,23 +1,28 @@
 version: '3'
 services:
-  microservicio:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  airzone-test-app:
+    container_name: airzone-test-app
+    restart: always
+    build: .
     image: airzone-test-app:latest
     ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
+      - "4000:3000"
+    links:
+      - mongo
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/airzone-test
+      - NODE_ENV=docker
+    volumes:
+      - .:/usr/src/app
 
-  mongodb:
+  mongo:
+    container_name: aizone-test-mongodb
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongodb_data:/data/db
+    logging:
+      driver: "none"
 
 volumes:
   mongodb_data:

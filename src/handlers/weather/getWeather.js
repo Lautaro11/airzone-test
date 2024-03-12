@@ -22,6 +22,6 @@ export default async function getWeather(req, res) {
 
     return res.status(200).json({ hourly: weatherData.hourly, daily: weatherData.daily });
   } catch (e) {
-    return res.status(e.statusCode || 400).json({message: e.message || "Unexpected error"});
+    return res.status(Number(e.statusCode) || 400).json({message: e.message || "Unexpected error"});
   }
 }

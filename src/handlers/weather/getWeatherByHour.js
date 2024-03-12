@@ -17,6 +17,8 @@ export default async function getWeatherByHour(req, res) {
     lat = Number(lat).toFixed(4);
     lon = Number(lon).toFixed(4);
 
+    const formattedHour = hour.toString().split(":")[0].padStart(2, "0");
+    hour = `${formattedHour}`;
     if (!validateHour(hour)) {
       return res.status(400).json({ message: "Invalid hour" });
     }
@@ -31,8 +33,6 @@ export default async function getWeatherByHour(req, res) {
 }
 
 function validateHour(hour) {
-  const formattedHour = hour.toString().split(":")[0].padStart(2, "0");
-  hour = `${formattedHour}`;
   const hourRegex = /^([01]?[0-9]|2[0-3])$/;
   return hourRegex.test(hour);
 }
