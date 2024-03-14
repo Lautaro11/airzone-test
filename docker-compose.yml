@@ -6,7 +6,7 @@ services:
     build: .
     image: airzone-test-app:latest
     ports:
-      - "4000:3000"
+      - "3000:3000"
     links:
       - mongo
     environment:
